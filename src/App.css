@@ -1,0 +1,90 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+main {
+  padding: 1rem;
+
+  .form-search {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5rem;
+
+    input {
+      border: none;
+      border-radius: 5rem;
+      background-color: var(--white);
+      padding: 0.5rem;
+      color: var(--black);
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .recent {
+    display: grid;
+    justify-items: start;
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 0 0.4rem;
+      padding: 0;
+
+      li {
+        padding-block: 0.2rem;
+        padding-inline: 0.5rem;
+        border-radius: 5rem;
+        background-color: var(--secondary);
+      }
+    }
+  }
+
+  .result {
+    display: grid;
+    justify-items: start;
+
+    ol {
+      display: grid;
+      gap: 0 0.4rem;
+      padding: 0;
+      justify-items: start;
+
+      li {
+        padding-block: 0.2rem;
+        padding-inline: 0.5rem;
+        border-radius: 5rem;
+
+        &:hover {
+          background-color: var(--accent);
+        }
+
+        &::marker {
+          color: var(--secondary);
+        }
+      }
+    }
+  }
+}

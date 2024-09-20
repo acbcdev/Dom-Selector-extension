@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Mi Extensión",
+  "version": "1.0",
+  "description": "Descripción breve de la extensión.",
+  
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ]
+}

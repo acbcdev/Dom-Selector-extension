@@ -111,6 +111,10 @@ button:focus-visible {
   }
 }
 
+body {
+  width: 500px;
+}
+
 @layer base {
   * {
     @apply border-border;

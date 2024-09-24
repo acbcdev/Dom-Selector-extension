@@ -1,90 +1,142 @@
 import "./App.css";
-import type { Trt } from "./types";
-// import { sendMessage } from "webext-bridge/popup";
-import { useState } from "react";
-// import { sendMessage } from "webext-bridge/content-script";
-function App() {
-	const [search, setSearch] = useState<string | null>(null);
-	const [result, setResult] = useState<Trt[]>([]);
+import { Input } from "@/components/ui/input";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
+import { EllipsisVertical } from "lucide-react";
+import { Button } from "./components/ui/button";
+import { useGlobal } from "./hooks/useGlobal";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import TableDialog from "./components/TableDialog";
+import { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
 
-	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		// console.log(search, property);
-		chrome.storage.local.set({ search });
-		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-			chrome.scripting.executeScript({
-				target: { tabId: tabs[0].id ?? 0 },
-				func: getDom,
-			});
-			chrome.storage.local.get(["result"], (data) => {
-				const result = data.result;
-				setResult(result);
-			});
-		});
-		function getDom() {
-			chrome.storage.local.get(["search"], (data) => {
-				const search = data.search;
-				const $$ = [...document.querySelectorAll(search)];
-				// sendMessage("dom", { data: $$ }, "popup");
-				const dt = $$.map((item) => ({
-					id: item.id,
-					class: item.className,
-					tag: item.tagName,
-					innerText: item.innerText,
-					href: item.href,
-				}));
-				chrome.storage.local.set({ result: dt });
-			});
-		}
-	};
+function App() {
+	const { search, result, property, handleSearch, history, updateSearch } =
+		useGlobal();
+	console.log(result);
+
 	return (
 		<>
 			<main>
 				<search>
-					<form className="form-search" onSubmit={handleSearch}>
-						<input
+					<form
+						className="form-search"
+						onSubmit={(e) => {
+							e.preventDefault();
+							handleSearch();
+						}}
+					>
+						<Input
+							autoFocus={true}
 							type="text"
-							list="htmlElements"
-							placeholder=".class"
+							placeholder=".class a video"
 							value={search ?? ""}
-							onChange={(e) => setSearch(e.target.value)}
+							onChange={(e) => updateSearch(e.target.value)}
 						/>
-						<datalist id="htmlElements">
-							<option value="img" />
-							<option value="a" />
-							<option value="div" />
-							<option value="span" />
-							<option value="p" />
-							<option value="h1" />
-							<option value="h2" />
-							<option value="h3" />
-							<option value="h4" />
-							<option value="h5" />
-							<option value="h6" />
-							<option value="ul" />
-							<option value="ol" />
-							<option value="li" />
-							<option value="table" />
-						</datalist>
+						<Button type="submit" className="rounded-3xl">
+							Search
+						</Button>
 					</form>
 				</search>
-				<section className="recent ">
+				<section className="my-2 recent">
 					<h2 className="text-xl">Recent Searches</h2>
-					<ul>
-						<li>a</li>
-						<li>img</li>
-						<li>.main-continer</li>
-					</ul>
+					<ScrollArea className="py-2 w-96">
+						<ul>
+							{history.map((i, index) => (
+								<li key={`${i}-${index}-${history.length}-${Math.random()}`}>
+									<button
+										type="button"
+										onClick={() => {
+											updateSearch(i);
+											handleSearch();
+										}}
+									>
+										{i}
+									</button>
+								</li>
+							))}
+						</ul>
+						<ScrollBar orientation="horizontal" />
+					</ScrollArea>
 				</section>
 				<section className="result">
 					{result.length !== 0 && (
 						<>
 							<h2>Result</h2>
-							<ol>
-								{result.map((item) => (
-									<li key={item.id}>{item.innerText}</li>
-								))}
-							</ol>
+							<Table className="scroolbar">
+								<TableHeader>
+									<TableRow>
+										<TableHead> </TableHead>
+										<TableHead>ID</TableHead>
+										<TableHead>Tag</TableHead>
+										{property.innerText && <TableHead>Inner Text</TableHead>}
+										{property.href && <TableHead>Href</TableHead>}
+										<TableHead>ClassList</TableHead>
+									</TableRow>
+								</TableHeader>
+								<TableBody className="text-start">
+									{result.map((item) => {
+										const { origin, pathname, search } = item.href
+											? new URL(item.href)
+											: { origin: "", pathname: "", search: "" };
+										return (
+											<>
+												<TableRow key={item.id}>
+													<TableCell>
+														<Dialog open={item.open}>
+															<DialogTrigger asChild>
+																<EllipsisVertical className="duration-200 cursor-pointer hover:text-zinc-500" />
+															</DialogTrigger>
+															<DialogContent
+																className="w-[90%] h-full"
+																aria-describedby={`${item.id}-${item.tag}-${item.class}`}
+															>
+																<DialogHeader>
+																	<DialogTitle>
+																		{item.tag}-{item.id}
+																	</DialogTitle>
+																</DialogHeader>
+																<section>
+																	<TableDialog element={item} />
+																</section>
+															</DialogContent>
+														</Dialog>
+													</TableCell>
+													<TableCell>{item.id}</TableCell>
+													<TableCell>{item.tag}</TableCell>
+													{property.innerText && (
+														<TableCell>{item.innerText}</TableCell>
+													)}
+													{property.href && (
+														<TableCell>
+															<a
+																href={item.href}
+																className="underline hover:text-zinc-500"
+																target="_blank"
+																rel="noreferrer"
+															>
+																{origin + pathname + (search && "?...")}
+															</a>
+														</TableCell>
+													)}
+													<TableCell className="w-fit">{item.class}</TableCell>
+												</TableRow>
+											</>
+										);
+									})}
+								</TableBody>
+							</Table>
 						</>
 					)}
 				</section>

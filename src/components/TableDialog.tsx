@@ -45,7 +45,7 @@ function TableDialog({ element }: Props) {
 	];
 
 	return (
-		<ScrollArea className="h-[80%] ">
+		<ScrollArea className="h-5/6 ">
 			<Table>
 				<TableHeader>
 					<TableRow>

@@ -9,8 +9,8 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { EllipsisVertical } from "lucide-react";
-import { Button } from "./components/ui/button";
-import { useGlobal } from "./hooks/useGlobal";
+import { Button } from "@/components/ui/button";
+import { useGlobal } from "@/hooks/useGlobal";
 import {
 	Dialog,
 	DialogContent,
@@ -18,14 +18,12 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import TableDialog from "./components/TableDialog";
-import { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
+import TableDialog from "@/components/TableDialog";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 function App() {
 	const { search, result, property, handleSearch, history, updateSearch } =
 		useGlobal();
-	console.log(result);
-
 	return (
 		<>
 			<main>
@@ -34,7 +32,10 @@ function App() {
 						className="form-search"
 						onSubmit={(e) => {
 							e.preventDefault();
-							handleSearch();
+							if (search !== null) {
+
+								handleSearch();
+							}
 						}}
 					>
 						<Input
@@ -99,7 +100,7 @@ function App() {
 																<EllipsisVertical className="duration-200 cursor-pointer hover:text-zinc-500" />
 															</DialogTrigger>
 															<DialogContent
-																className="w-[90%] h-full"
+																className="w-[95%] h-full"
 																aria-describedby={`${item.id}-${item.tag}-${item.class}`}
 															>
 																<DialogHeader>

@@ -24,6 +24,7 @@ export function useGlobal() {
 
 	const handleSearch = () => {
 		if (search === null) return;
+		if (search.trim() === "") return;
 		if (search !== history[0]) setHistory([search, ...history.slice(0, 10)]);
 
 		chrome.storage.local.set({ search, history });
@@ -45,7 +46,7 @@ export function useGlobal() {
 		);
 	};
 	const updateSearch = (newValue: string) => {
-		setSearch(newValue);
+		setSearch(newValue.trim());
 	};
 	return {
 		search,
@@ -80,9 +81,9 @@ function getDom() {
 					rect.top >= 0 &&
 					rect.left >= 0 &&
 					rect.bottom <=
-						(window.innerHeight || document.documentElement.clientHeight) &&
+					(window.innerHeight || document.documentElement.clientHeight) &&
 					rect.right <=
-						(window.innerWidth || document.documentElement.clientWidth)
+					(window.innerWidth || document.documentElement.clientWidth)
 				);
 			})(),
 			parent: {
@@ -103,7 +104,7 @@ function getDom() {
 
 		if (dt.length / 2 <= dt.filter((item) => item.href).length) {
 			property.href = true;
-			dt.sort((a, b) => b.href.length - a.href.length);
+			// dt.sort((a, b) => b.href.length - a.href.length);
 		}
 
 		chrome.runtime.sendMessage({ type: "dom", list: dt, property });

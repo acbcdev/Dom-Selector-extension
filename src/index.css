@@ -113,6 +113,8 @@ button:focus-visible {
 
 body {
   width: 500px;
+  overflow: hidden;
+  height: 600px
 }
 
 @layer base {

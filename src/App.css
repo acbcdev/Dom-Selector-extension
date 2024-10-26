@@ -25,7 +25,7 @@ main {
   padding: 1rem;
 
   .form-search {
-    width: 100%;
+    width: 80vw;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 0.5rem;
@@ -64,38 +64,5 @@ main {
     display: grid;
     justify-items: start;
 
-  }
-}
-
-body,
-.scroolbar {
-  --sb-track-color: #334;
-  --sb-thumb-color: transparent;
-  --sb-size: 14px;
-}
-
-body,
-.scroolbar::-webkit-scrollbar {
-  width: var(--sb-size)
-}
-
-body,
-.scroolbar::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 8px;
-}
-
-body,
-.scroolbar::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 8px;
-
-}
-
-@supports not selector(::-webkit-scrollbar) {
-
-  body,
-  .scroolbar {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }

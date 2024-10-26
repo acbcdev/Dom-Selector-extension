@@ -27,7 +27,7 @@ function App() {
 	return (
 		<>
 			<main>
-				<search>
+				<search className="absolute mx-auto top-3 ">
 					<form
 						className="form-search"
 						onSubmit={(e) => {
@@ -52,7 +52,7 @@ function App() {
 				</search>
 				<section className="my-2 recent">
 					<h2 className="text-xl">Recent Searches</h2>
-					<ScrollArea className="py-2 w-96">
+					<ScrollArea className="py-2 w-96 ">
 						<ul>
 							{history.map((i, index) => (
 								<li key={`${i}-${index}-${history.length}-${Math.random()}`}>
@@ -71,76 +71,79 @@ function App() {
 						<ScrollBar orientation="horizontal" />
 					</ScrollArea>
 				</section>
-				<section className="result">
-					{result.length !== 0 && (
-						<>
-							<h2>Result</h2>
-							<Table className="scroolbar">
-								<TableHeader>
-									<TableRow>
-										<TableHead> </TableHead>
-										<TableHead>ID</TableHead>
-										<TableHead>Tag</TableHead>
-										{property.innerText && <TableHead>Inner Text</TableHead>}
-										{property.href && <TableHead>Href</TableHead>}
-										<TableHead>ClassList</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody className="text-start">
-									{result.map((item) => {
-										const { origin, pathname, search } = item.href
-											? new URL(item.href)
-											: { origin: "", pathname: "", search: "" };
-										return (
-											<>
-												<TableRow key={item.id}>
-													<TableCell>
-														<Dialog open={item.open}>
-															<DialogTrigger asChild>
-																<EllipsisVertical className="duration-200 cursor-pointer hover:text-zinc-500" />
-															</DialogTrigger>
-															<DialogContent
-																className="w-[95%] h-full"
-																aria-describedby={`${item.id}-${item.tag}-${item.class}`}
-															>
-																<DialogHeader>
-																	<DialogTitle>
-																		{item.tag}-{item.id}
-																	</DialogTitle>
-																</DialogHeader>
-																<section>
-																	<TableDialog element={item} />
-																</section>
-															</DialogContent>
-														</Dialog>
-													</TableCell>
-													<TableCell>{item.id}</TableCell>
-													<TableCell>{item.tag}</TableCell>
-													{property.innerText && (
-														<TableCell>{item.innerText}</TableCell>
-													)}
-													{property.href && (
+				<ScrollArea className="h-[60vh]">
+					<section className="result">
+						{result.length !== 0 && (
+							<>
+								<h2>Result</h2>
+								<Table className="scroolbar">
+									<TableHeader>
+										<TableRow>
+											<TableHead> </TableHead>
+											<TableHead>ID</TableHead>
+											<TableHead>Tag</TableHead>
+											{property.innerText && <TableHead>Inner Text</TableHead>}
+											{property.href && <TableHead>Href</TableHead>}
+											<TableHead>ClassList</TableHead>
+										</TableRow>
+									</TableHeader>
+									<TableBody className="text-start">
+										{result.map((item) => {
+											const { origin, pathname, search } = item.href
+												? new URL(item.href)
+												: { origin: "", pathname: "", search: "" };
+											return (
+												<>
+													<TableRow key={item.id}>
 														<TableCell>
-															<a
-																href={item.href}
-																className="underline hover:text-zinc-500"
-																target="_blank"
-																rel="noreferrer"
-															>
-																{origin + pathname + (search && "?...")}
-															</a>
+															<Dialog open={item.open}>
+																<DialogTrigger asChild>
+																	<EllipsisVertical className="duration-200 cursor-pointer hover:text-zinc-500" />
+																</DialogTrigger>
+																<DialogContent
+																	className="w-[95%] h-full"
+																	aria-describedby={`${item.id}-${item.tag}-${item.class}`}
+																>
+																	<DialogHeader>
+																		<DialogTitle>
+																			{item.tag}-{item.id}
+																		</DialogTitle>
+																	</DialogHeader>
+																	<section>
+																		<TableDialog element={item} />
+																	</section>
+																</DialogContent>
+															</Dialog>
 														</TableCell>
-													)}
-													<TableCell className="w-fit">{item.class}</TableCell>
-												</TableRow>
-											</>
-										);
-									})}
-								</TableBody>
-							</Table>
-						</>
-					)}
-				</section>
+														<TableCell>{item.id}</TableCell>
+														<TableCell>{item.tag}</TableCell>
+														{property.innerText && (
+															<TableCell>{item.innerText}</TableCell>
+														)}
+														{property.href && (
+															<TableCell>
+																<a
+																	href={item.href}
+																	className="underline hover:text-zinc-500"
+																	target="_blank"
+																	rel="noreferrer"
+																>
+																	{origin + pathname + (search && "?...")}
+																</a>
+															</TableCell>
+														)}
+														<TableCell className="w-fit">{item.class}</TableCell>
+													</TableRow>
+												</>
+											);
+										})}
+									</TableBody>
+								</Table>
+							</>
+						)}
+					</section>
+				</ScrollArea>
+
 			</main>
 		</>
 	);

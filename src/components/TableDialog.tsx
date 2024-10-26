@@ -45,7 +45,7 @@ function TableDialog({ element }: Props) {
 	];
 
 	return (
-		<ScrollArea className="h-5/6 ">
+		<ScrollArea className="min-h-56 h-96">
 			<Table>
 				<TableHeader>
 					<TableRow>

@@ -46,7 +46,7 @@ export function useGlobal() {
 		);
 	};
 	const updateSearch = (newValue: string) => {
-		setSearch(newValue.trim());
+		setSearch(newValue);
 	};
 	return {
 		search,

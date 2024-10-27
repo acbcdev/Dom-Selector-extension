@@ -45,7 +45,7 @@ function App() {
 							value={search ?? ""}
 							onChange={(e) => updateSearch(e.target.value)}
 						/>
-						<Button type="submit" className="rounded-3xl">
+						<Button type="submit" >
 							Search
 						</Button>
 					</form>
@@ -56,7 +56,7 @@ function App() {
 						<ul>
 							{history.map((i, index) => (
 								<li key={`${i}-${index}-${history.length}-${Math.random()}`}>
-									<button
+									<Button
 										type="button"
 										onClick={() => {
 											updateSearch(i);
@@ -64,14 +64,14 @@ function App() {
 										}}
 									>
 										{i}
-									</button>
+									</Button>
 								</li>
 							))}
 						</ul>
 						<ScrollBar orientation="horizontal" />
 					</ScrollArea>
 				</section>
-				<ScrollArea className="h-[60vh]">
+				<ScrollArea className="h-[60vh] w-full">
 					<section className="result">
 						{result.length !== 0 && (
 							<>
@@ -142,6 +142,7 @@ function App() {
 							</>
 						)}
 					</section>
+					<ScrollBar orientation="horizontal" />
 				</ScrollArea>
 
 			</main>

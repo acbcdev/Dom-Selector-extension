@@ -27,13 +27,12 @@ function App() {
 	return (
 		<>
 			<main>
-				<search className="absolute mx-auto top-3 ">
+				<search >
 					<form
-						className="form-search"
+						className="flex items-center px-3 gap-x-2 "
 						onSubmit={(e) => {
 							e.preventDefault();
 							if (search !== null) {
-
 								handleSearch();
 							}
 						}}
@@ -41,7 +40,8 @@ function App() {
 						<Input
 							autoFocus={true}
 							type="text"
-							placeholder=".class a video"
+
+							placeholder="a, h1, p,.myclass"
 							value={search ?? ""}
 							onChange={(e) => updateSearch(e.target.value)}
 						/>
@@ -51,7 +51,7 @@ function App() {
 					</form>
 				</search>
 				<section className="my-2 recent">
-					<h2 className="text-xl">Recent Searches</h2>
+					<h2 className="mt-2 text-xl">Recent Searches</h2>
 					<ScrollArea className="py-2 w-96 ">
 						<ul>
 							{history.map((i, index) => (
@@ -60,7 +60,7 @@ function App() {
 										type="button"
 										onClick={() => {
 											updateSearch(i);
-											handleSearch();
+											handleSearch(i);
 										}}
 									>
 										{i}
@@ -71,7 +71,7 @@ function App() {
 						<ScrollBar orientation="horizontal" />
 					</ScrollArea>
 				</section>
-				<ScrollArea className="h-[60vh] w-full">
+				<ScrollArea className="w-full ">
 					<section className="result">
 						{result.length !== 0 && (
 							<>

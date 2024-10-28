@@ -22,12 +22,13 @@ export function useGlobal() {
 		});
 	}, []);
 
-	const handleSearch = () => {
-		if (search === null) return;
-		if (search.trim() === "") return;
-		if (search !== history[0]) setHistory([search, ...history.slice(0, 10)]);
+	const handleSearch = (value = '') => {
+		const searchValue = value || search;
+		if (searchValue === null) return;
+		if (searchValue.trim() === "") return;
+		if (searchValue !== history[0]) setHistory([searchValue, ...history.slice(0, 10)]);
 
-		chrome.storage.local.set({ search, history });
+		chrome.storage.local.set({ search: searchValue, history });
 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 			chrome.scripting.executeScript({
 				target: { tabId: tabs[0].id ?? 0 },

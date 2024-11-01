@@ -26,6 +26,7 @@ function TableDialog({ element }: Props) {
 		{ name: "url query (?)", value: search },
 		{ name: "idAttribute", value: element.idAttribute },
 		{ name: "indexInParent", value: element.indexInParent },
+		{ name: "content", value: element.content },
 		{
 			name: "dimensions",
 			value: `width: ${element.dimensions.width}, height: ${element.dimensions.height}`,
@@ -42,6 +43,7 @@ function TableDialog({ element }: Props) {
 							width: ${element.boundingBox.width}, height: ${element.boundingBox.height}\n `,
 		},
 		{ name: "childrenCount", value: element.childrenCount },
+
 	];
 
 	return (

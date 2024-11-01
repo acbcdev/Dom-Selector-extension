@@ -25,6 +25,7 @@ export type ElementInfo = {
 		width: number;
 		height: number;
 	};
+	content: string;
 	visible: boolean;
 	parent: {
 		tag: string | undefined;

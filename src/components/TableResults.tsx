@@ -15,7 +15,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "./ui/table";
-import TableDialog from "../TableDialog";
+import TableDialog from "./TableDialog";
 import type { ElementInfo } from "@/types";
 
 export default function TableResults({

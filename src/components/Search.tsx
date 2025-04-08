@@ -13,7 +13,7 @@ export default function Search({
 	return (
 		<search>
 			<form
-				className="flex items-center px-3 gap-x-2 "
+				className="flex items-center gap-x-2"
 				onSubmit={(e) => {
 					e.preventDefault();
 					if (search !== null) {

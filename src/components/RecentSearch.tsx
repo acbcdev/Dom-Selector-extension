@@ -4,8 +4,6 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { ElementInfo } from "@/types";
@@ -36,8 +34,6 @@ export default function RecentSearch({
 							<Button variant={"outline"}>Export</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
-							<DropdownMenuLabel>Export Options</DropdownMenuLabel>
-							<DropdownMenuSeparator />
 							<DropdownMenuItem onClick={handleCopy}>Copy</DropdownMenuItem>
 							<DropdownMenuItem onClick={handleExport}>
 								JSON File

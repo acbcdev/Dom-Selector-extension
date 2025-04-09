@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@plugin 'tailwindcss-animate';
+/* @plugin 'tailwindcss-animate'; */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,6 +42,26 @@
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 }
 
 /*
@@ -53,6 +73,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -63,51 +84,51 @@
 }
 
 @layer base {
-	:root {
-		color-scheme: dark;
-		--background: 233 18% 19%;
-		--foreground: 173 24% 93%;
-		--muted: 233 12% 23%;
-		--muted-foreground: 233 12% 73%;
-		--popover: 233 18% 16%;
-		--popover-foreground: 0 0% 100%;
-		--card: 233 18% 17%;
-		--card-foreground: 173 24% 98%;
-		--border: 233 8% 24%;
-		--input: 233 8% 27%;
-		--primary: 44 100% 71%;
-		--primary-foreground: 44 100% 11%;
-		--secondary: 44 30% 25%;
-		--secondary-foreground: 44 30% 85%;
-		--accent: 233 18% 34%;
-		--accent-foreground: 233 18% 94%;
-		--destructive: 10 90% 57%;
-		--destructive-foreground: 0 0% 100%;
-		--ring: 44 100% 71%;
-		--radius: 0.7rem;
-	}
+  :root {
+    color-scheme: dark;
+    --background: 233 18% 19%;
+    --foreground: 173 24% 93%;
+    --muted: 233 12% 23%;
+    --muted-foreground: 233 12% 73%;
+    --popover: 233 18% 16%;
+    --popover-foreground: 0 0% 100%;
+    --card: 233 18% 17%;
+    --card-foreground: 173 24% 98%;
+    --border: 233 8% 24%;
+    --input: 233 8% 27%;
+    --primary: 44 100% 71%;
+    --primary-foreground: 44 100% 11%;
+    --secondary: 44 30% 25%;
+    --secondary-foreground: 44 30% 85%;
+    --accent: 233 18% 34%;
+    --accent-foreground: 233 18% 94%;
+    --destructive: 10 90% 57%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 44 100% 71%;
+    --radius: 0.7rem;
+  }
 
-	.dark {
-		--background: 233 18% 19%;
-		--foreground: 173 24% 93%;
-		--muted: 233 12% 23%;
-		--muted-foreground: 233 12% 73%;
-		--popover: 233 18% 16%;
-		--popover-foreground: 0 0% 100%;
-		--card: 233 18% 17%;
-		--card-foreground: 173 24% 98%;
-		--border: 233 8% 24%;
-		--input: 233 8% 27%;
-		--primary: 44 100% 71%;
-		--primary-foreground: 44 100% 11%;
-		--secondary: 44 30% 25%;
-		--secondary-foreground: 44 30% 85%;
-		--accent: 233 18% 34%;
-		--accent-foreground: 233 18% 94%;
-		--destructive: 10 90% 57%;
-		--destructive-foreground: 0 0% 100%;
-		--ring: 44 100% 71%;
-	}
+  .dark {
+    --background: 233 18% 19%;
+    --foreground: 173 24% 93%;
+    --muted: 233 12% 23%;
+    --muted-foreground: 233 12% 73%;
+    --popover: 233 18% 16%;
+    --popover-foreground: 0 0% 100%;
+    --card: 233 18% 17%;
+    --card-foreground: 173 24% 98%;
+    --border: 233 8% 24%;
+    --input: 233 8% 27%;
+    --primary: 44 100% 71%;
+    --primary-foreground: 44 100% 11%;
+    --secondary: 44 30% 25%;
+    --secondary-foreground: 44 30% 85%;
+    --accent: 233 18% 34%;
+    --accent-foreground: 233 18% 94%;
+    --destructive: 10 90% 57%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 44 100% 71%;
+  }
 }
 
 @layer utilities {
@@ -138,11 +159,11 @@
 
 
 @layer base {
-	* {
-		@apply border-border;
-	}
+  * {
+    @apply border-border;
+  }
 
-	body {
-		@apply bg-background text-foreground;
-	}
+  body {
+    @apply bg-background text-foreground;
+  }
 }

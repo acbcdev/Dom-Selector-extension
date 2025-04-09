@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "zip": "zip -r dist.zip dist",
+    "zip": "pnpm build && zip -r dist.zip dist",
     "format": "biome format ./src",
     "check": "biome check ./src",
     "lint": "biome lint ./src"

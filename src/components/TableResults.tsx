@@ -98,7 +98,7 @@ export default function TableResults({
 						</Table>
 					</>
 				) : (
-					search !== null && (
+					search && (
 						<div className="flex flex-col items-center justify-center h-full mr-2">
 							<h2 className="text-xl font-bold">No results found</h2>
 						</div>
